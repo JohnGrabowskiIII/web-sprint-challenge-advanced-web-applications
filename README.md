@@ -42,15 +42,15 @@ Your finished project must include all of the following requirements. **Unlike o
 #### Authentication
 > *Build a login form to authenticate your users along with all the components and utilities needed to support authentication.*
 
-* [ ] In `Login.js`, build all UI and state functionality needed to capture a username and password.
-* [ ] **Make sure that the input for your username and password includes the id="username" and id="password" attributes. Also make sure the submit button for this form contains the id="error" attribute. Codegrade autotests will fail without them.**
-* [ ] Build in functionality that would allow an error to be displayed in the provided p tag if either the username or password is incorrect.
-* [ ] **Make sure your error p tag has an id="error" attribute attached. Codegrade autotests will fail without them.**
-* [ ] Construct an http request that retrieves an auth token from the server when the username `Lambda` and the password `School` is passed into the request.
-* [ ] Save the token to localStorage.
-* [ ] Build a `axiosWithAuth` module within the helpers folder to create an instance of axios with the authentication header.
-* [ ] Build a `PrivateRoute` component within the components folder and use it to protect the route that renders the `BubblesPage` component.
-* [ ] In `App.js`, build the backend to the logout button. When pressed, send an http request to the logout endpoint and remove the authentication token from localStorage. Use window.location.href to redirect to the login page.
+* [1 ] In `Login.js`, build all UI and state functionality needed to capture a username and password.
+* [1 ] **Make sure that the input for your username and password includes the id="username" and id="password" attributes. Also make sure the submit button for this form contains the id="error" attribute. Codegrade autotests will fail without them.**
+* [1 ] Build in functionality that would allow an error to be displayed in the provided p tag if either the username or password is incorrect.
+* [1 ] **Make sure your error p tag has an id="error" attribute attached. Codegrade autotests will fail without them.**
+* [1 ] Construct an http request that retrieves an auth token from the server when the username `Lambda` and the password `School` is passed into the request.
+* [1 ] Save the token to localStorage.
+* [1 ] Build a `axiosWithAuth` module within the helpers folder to create an instance of axios with the authentication header.
+* [1 ] Build a `PrivateRoute` component within the components folder and use it to protect the route that renders the `BubblesPage` component.
+* [1 ] In `App.js`, build the backend to the logout button. When pressed, send an http request to the logout endpoint and remove the authentication token from localStorage. Use window.location.href to redirect to the login page.
 
 #### Consuming the API
 > *Add in the http requests and state changes needed to connect our api to the web application. Consider the effect of authentication on your api requests.*

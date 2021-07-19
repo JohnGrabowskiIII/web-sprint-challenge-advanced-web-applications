@@ -1,20 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Login = () => {
+import UsernameInput from "./loginForm/UsernameInput";
+import PasswordInput from "./loginForm/PasswordInput";
+import SubmitButton from "./loginForm/SubmitButton";
+import ErrorMessage from "./loginForm/ErrorMessage";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
+
+const Login = (props) => {
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
 
-  const error = "";
-  //replace with error state
+  const initFormState = {
+    username: '',
+    password: '',
+  }
+
+  const [loginFormState, setLoginFormState] = useState(initFormState)
+
+  const [errorDisplay, setErrorDisplay] = useState(false)
+
+  const changeHandler = (e) => {
+    setLoginFormState({...loginFormState,
+      [e.target.name]: e.target.value})
+  }
+
+  const checkFormState = () => {
+    return (
+        loginFormState.username === 'Lambda' &&
+        loginFormState.password === 'School' ?
+        true : false 
+    )
+  }
+
+  const axiosPostLogin = () => {
+    axiosWithAuth().post('http://localhost:5000/api/login', loginFormState)
+      .then(res => {
+        window.localStorage.setItem('token', res.data.payload)
+      })
+      .catch(err => {
+        alert('error', err)
+      })
+  }
+
+  const loginSuccess = () => {
+    axiosPostLogin();
+    setLoginFormState(initFormState)
+    setErrorDisplay(false)
+    props.history.push('/bubblepage')
+  }
+
+  const loginFailure = () => {
+    setErrorDisplay(true)
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log('clicking button')
+      checkFormState() ?
+        loginSuccess() :
+        loginFailure();
+  }
 
   return (
     <div>
       <h1>Welcome to the Bubble App!</h1>
       <div data-testid="loginForm" className="login-form">
-        <h2>Build login form here</h2>
+        {/* <h2>Build login form here</h2> */}
+        <form onSubmit={submitHandler} >
+          <UsernameInput 
+            value={loginFormState.username}
+            change={changeHandler}
+          />
+          <PasswordInput 
+            value={loginFormState.password}
+            change={changeHandler}
+          />
+          <SubmitButton formState={loginFormState} />
+        </form>
       </div>
-
-      <p id="error" className="error">{error}</p>
+      {errorDisplay && <ErrorMessage />}
     </div>
   );
 };

@@ -1,19 +1,42 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import axios from 'axios';
 
 import Login from "./components/Login";
+import PrivateRoute from "./components/PrivateRoute";
 import "./styles.scss";
 
+import BubblePage from './components/BubblePage'
+
 function App() {
+
+  // RESPONDS WITH 404 NOT FOUND
+  const axiosLogout = () => {
+    axios.post('http://localhost:5000/api/logout')
+      .then(res => {
+        console.log(res);
+      })
+  }
+
+  const logout = () => {
+    axiosLogout();
+    window.localStorage.removeItem('token');
+  }
+
   return (
     <Router>
       <div className="App">
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href="#">logout</a>
+          <Link to='/login' >login</Link>
+          <Link to='/bubblepage' >Bubble Page</Link>
+          <a data-testid="logoutButton" href="#" onClick={logout} >logout</a>
         </header> 
 
-        <Route exact path="/" component={Login} />
+        <Route path="/login" component={Login} />
+
+        <PrivateRoute path='/bubblepage' component={BubblePage} />
+
       </div>
     </Router>
   );

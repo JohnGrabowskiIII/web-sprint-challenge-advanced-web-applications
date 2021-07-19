@@ -21,6 +21,7 @@ function App() {
   const logout = () => {
     axiosLogout();
     window.localStorage.removeItem('token');
+    window.location.href = '/login'
   }
 
   return (
